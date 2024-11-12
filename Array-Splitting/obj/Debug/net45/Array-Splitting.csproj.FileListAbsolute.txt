@@ -1,0 +1,10 @@
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.csproj.AssemblyReference.cache
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.AssemblyInfoInputs.cache
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.AssemblyInfo.cs
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.csproj.CoreCompileInputs.cache
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\bin\Debug\net45\Array-Splitting.exe.config
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\bin\Debug\net45\Array-Splitting.exe
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\bin\Debug\net45\Array-Splitting.pdb
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.exe
+C:\Users\ahg95\OneDrive\Dokumente\Bewerbung\Artefacts\Cipsoft\Array-Splitting\obj\Debug\net45\Array-Splitting.pdb

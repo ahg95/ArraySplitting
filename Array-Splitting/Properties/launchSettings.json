@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Array-Splitting": {
+      "commandName": "Project",
+      "commandLineArgs": "Test1.txt",
+      "workingDirectory": "C:\\Users\\ahg95\\OneDrive\\Dokumente\\Bewerbung\\Artefacts\\Cipsoft\\TestCases"
+    }
+  }
+}
