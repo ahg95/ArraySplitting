@@ -49,7 +49,7 @@ namespace Array_Splitting.Tests
         {
             // Arrange
             List<int> dayTripDistances;
-            var stageDistances = ProblemGenerator.GenerateProblemWithUniqueSolution(days, maxDayTripDistance, out dayTripDistances, seed);
+            var stageDistances = HikeProblemGenerator.GenerateProblemWithUniqueSolution(days, maxDayTripDistance, out dayTripDistances, seed);
 
             // Act
             int[] result = new int[0];
@@ -57,7 +57,7 @@ namespace Array_Splitting.Tests
             for (int i = 0; i < repeats; i++)
             {
                 stopwatch.Restart();
-                result = Program.SolveHikingProblem(stageDistances, days);
+                result = SolveHikeProblem.SolveHikingProblem(stageDistances, days);
                 stopwatch.Stop();
                 executionTime += stopwatch.Elapsed.TotalMilliseconds;
             }
@@ -129,7 +129,7 @@ namespace Array_Splitting.Tests
 
                 // ACT
                 // Finally, test the search algorithm on the problem.
-                var result = Program.ModifiedBinarySearchNextLowest(values.ToArray(), 0, problemSize - 1, searchValue);
+                var result = SolveHikeProblem.ModifiedBinarySearchNextLowest(values.ToArray(), 0, problemSize - 1, searchValue);
 
                 // ASSERT
                 Assert.AreEqual(result, solutionIndex);

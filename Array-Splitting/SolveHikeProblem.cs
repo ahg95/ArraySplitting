@@ -61,6 +61,8 @@ namespace Array_Splitting
 
 
             // Secondly, extend all day trips based on a lower bound for the longest day trip distance.
+            // Extending the day trips is not necessary to solve the problem,
+            // but my performance tests show that this improves execution time by a factor of about 300.
             // - Calculate a lower bound for the longest day trip's distance.
             // - - The longest day trip must be at least as long as the average day trip.
             var lastIndex = distances.Length - 1;
@@ -98,21 +100,22 @@ namespace Array_Splitting
                 // - This is because the established day trips do not exceed the lowest possible maximum day trip distance.
                 // - This leaves two cases to consider; the end index of this day trip will move up or it will stay where it is.
                 // - 1. Case: the end index stays where it is
-                // - - With a high chance, the average distance of the remaining day trips will be higher than that of the previous day trips.
-                // - - 
+                // - - We can calculate two average day trip distances;
+                // - - one for all day trips before this end index and one for all day trips after this end index.
+                // - - Both could be used to increase the lower bound.
+                // - - However, with a high chance, the remaining day trips will have a higher average distance.
+                var newLowerBound = (int)Math.Ceiling((hikeDistance - distanceCovered) / (float)(days - i - 1));
                 // - 2. Case: the end index increases
-                // - - 
-
-                var averageRemainingDayTripDistance = (int)Math.Ceiling((hikeDistance - distanceCovered) / (float)(days - i - 1));
-                var averagePreviousDayTripDistance = (int)Math.Ceiling(distanceCovered / (float)(i + 1));
-
-                var averageRemainingDayTripDistanceExtended = (int)Math.Ceiling((hikeDistance - distanceCovered - distances[endIndex + 1]) / (float)(days - i - 1));
-                var averagePreviousDayTripDistanceExtended = (int)Math.Ceiling((distanceCovered + distances[endIndex + 1]) / (float)(i + 1));
-
-                var newLowerBound = Math.Min(Math.Max(averageRemainingDayTripDistance, averagePreviousDayTripDistance), Math.Max(averageRemainingDayTripDistanceExtended, averagePreviousDayTripDistanceExtended));
+                // - - We don't know how far the index will increase.
+                // - - However, it will at least increase to the next stage.
+                // - - We can thus calculate a lower bound for the average day trip distance.
+                // - We must take the lower value of the two bounds to not exclude a minimal solution.
+                newLowerBound = Math.Min(newLowerBound, (int)Math.Ceiling((distanceCovered + distances[endIndex + 1]) / (float)(i + 1)));
 
                 // Only accept the updated lower bound if it is higher.
                 lowerBound = Math.Max(lowerBound, newLowerBound);
+
+                // Unfortunately, in practice, my performance tests revealed no speed improvement for updating the lower bounds.
 
                 // Update the starting stage index for the next day trip.
                 startIndex = endIndex + 1;
@@ -121,6 +124,9 @@ namespace Array_Splitting
             // - The last day trip will end at the last index and have the remaining distance.
             endIndices[days - 1] = lastIndex;
             dayTripDistances[days - 1] = hikeDistance - distanceCovered;
+
+            // I experimented with extending the day trips a second time with the updated lower bounds.
+            // However, this showed again no visible speed improvement.
 
 
 
@@ -206,13 +212,53 @@ namespace Array_Splitting
             return true;
         }
 
-        public static int CalculateDayTripDistance(int startIndex, int endIndex, int[] accumulatedStageDistances)
+        static int CalculateDayTripDistance(int startIndex, int endIndex, int[] accumulatedStageDistances)
         {
             if (startIndex == 0)
                 return accumulatedStageDistances[endIndex];
             else
                 return accumulatedStageDistances[endIndex] - accumulatedStageDistances[startIndex - 1];
         }
+
+
+        /// <summary>
+        /// A modified binary search. If the searched value is not in the container then a close alternative is returned based on the provided comparer.
+        /// </summary>
+        /// <param name="container">The container to search in.</param>
+        /// <param name="low">The lowest index to search for the value (inclusive).</param>
+        /// <param name="high">The highest index to search for the value (inclusive).</param>
+        /// <param name="value">The value to search for in the container.</param>
+        /// <returns>The index of the searched value. If the searched value is not in the container then the index of the highest value below the searched value is returned.</returns>
+        public static int ModifiedBinarySearch(int[] container, int low, int high, int value)
+        {
+            int result = -1;
+
+            while (low <= high)
+            {
+                int mid = (int)((low + high) * 0.5f);
+
+                var a = container[mid];
+
+                if (a == value)
+                    return mid;
+
+                if (a < value)
+                {
+                    // Save this value as the best one found yet.
+                    result = mid;
+
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid - 1;
+                }
+            }
+
+            return result;
+        }
+
+
 
         /// <summary>
         /// A modified binary search. If the searched value is not in the container then a close alternative is returned based on the provided comparer.
