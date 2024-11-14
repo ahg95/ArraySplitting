@@ -1,0 +1,1085 @@
+--- Testing problem ---
+Days: 2, maximum day trip distance: 2
+Stage distances:
+2
+2
+
+Solution day trip distances:
+2
+2
+
+Result day trip distances:
+2
+2
+--- Testing problem ---
+Days: 2, maximum day trip distance: 4
+Stage distances:
+4
+3
+1
+
+Solution day trip distances:
+4
+4
+
+Result day trip distances:
+4
+4
+--- Testing problem ---
+Days: 2, maximum day trip distance: 8
+Stage distances:
+1
+6
+5
+3
+
+Solution day trip distances:
+7
+8
+
+Result day trip distances:
+7
+8
+--- Testing problem ---
+Days: 2, maximum day trip distance: 16
+Stage distances:
+2
+1
+11
+9
+7
+
+Solution day trip distances:
+14
+16
+
+Result day trip distances:
+14
+16
+--- Testing problem ---
+Days: 2, maximum day trip distance: 32
+Stage distances:
+4
+2
+21
+17
+15
+
+Solution day trip distances:
+27
+32
+
+Result day trip distances:
+27
+32
+--- Testing problem ---
+Days: 2, maximum day trip distance: 64
+Stage distances:
+7
+1
+3
+1
+41
+36
+10
+18
+
+Solution day trip distances:
+53
+64
+
+Result day trip distances:
+53
+64
+--- Testing problem ---
+Days: 2, maximum day trip distance: 128
+Stage distances:
+14
+1
+6
+1
+2
+81
+73
+55
+
+Solution day trip distances:
+105
+128
+
+Result day trip distances:
+105
+128
+--- Testing problem ---
+Days: 4, maximum day trip distance: 2
+Stage distances:
+1
+1
+1
+1
+1
+1
+1
+1
+
+Solution day trip distances:
+2
+2
+2
+2
+
+Result day trip distances:
+2
+2
+2
+2
+--- Testing problem ---
+Days: 4, maximum day trip distance: 4
+Stage distances:
+2
+1
+1
+1
+1
+1
+1
+1
+3
+3
+
+Solution day trip distances:
+4
+4
+4
+3
+
+Result day trip distances:
+4
+4
+4
+3
+--- Testing problem ---
+Days: 4, maximum day trip distance: 8
+Stage distances:
+3
+1
+3
+3
+1
+1
+2
+2
+6
+5
+
+Solution day trip distances:
+7
+7
+8
+5
+
+Result day trip distances:
+7
+7
+8
+5
+--- Testing problem ---
+Days: 4, maximum day trip distance: 16
+Stage distances:
+1
+5
+2
+6
+7
+1
+1
+4
+8
+8
+3
+1
+5
+
+Solution day trip distances:
+14
+13
+16
+9
+
+Result day trip distances:
+14
+13
+16
+9
+--- Testing problem ---
+Days: 4, maximum day trip distance: 32
+Stage distances:
+1
+9
+1
+4
+1
+11
+6
+2
+18
+10
+1
+21
+1
+12
+5
+
+Solution day trip distances:
+27
+26
+32
+18
+
+Result day trip distances:
+27
+26
+32
+18
+--- Testing problem ---
+Days: 4, maximum day trip distance: 64
+Stage distances:
+2
+18
+3
+7
+1
+1
+21
+51
+1
+20
+2
+42
+2
+24
+10
+
+Solution day trip distances:
+53
+52
+64
+36
+
+Result day trip distances:
+53
+52
+64
+36
+--- Testing problem ---
+Days: 4, maximum day trip distance: 128
+Stage distances:
+5
+36
+5
+13
+1
+3
+1
+41
+49
+9
+1
+45
+49
+1
+78
+6
+13
+1
+1
+16
+24
+4
+2
+5
+
+Solution day trip distances:
+105
+104
+128
+72
+
+Result day trip distances:
+105
+104
+128
+72
+--- Testing problem ---
+Days: 8, maximum day trip distance: 2
+Stage distances:
+2
+1
+1
+2
+1
+2
+1
+1
+2
+1
+
+Solution day trip distances:
+2
+2
+2
+1
+2
+2
+2
+1
+
+Result day trip distances:
+2
+2
+2
+1
+2
+2
+2
+1
+--- Testing problem ---
+Days: 8, maximum day trip distance: 4
+Stage distances:
+4
+1
+1
+2
+3
+2
+3
+1
+1
+3
+1
+3
+1
+1
+
+Solution day trip distances:
+4
+4
+3
+2
+4
+4
+4
+2
+
+Result day trip distances:
+4
+4
+3
+2
+4
+4
+4
+2
+--- Testing problem ---
+Days: 8, maximum day trip distance: 8
+Stage distances:
+7
+2
+1
+4
+5
+5
+4
+2
+3
+5
+3
+5
+2
+2
+
+Solution day trip distances:
+7
+7
+5
+5
+6
+8
+8
+4
+
+Result day trip distances:
+7
+7
+5
+5
+6
+8
+8
+4
+--- Testing problem ---
+Days: 8, maximum day trip distance: 16
+Stage distances:
+14
+4
+1
+1
+7
+11
+8
+9
+4
+14
+2
+2
+13
+7
+1
+
+Solution day trip distances:
+14
+13
+11
+8
+13
+16
+15
+8
+
+Result day trip distances:
+14
+13
+11
+8
+13
+16
+15
+8
+--- Testing problem ---
+Days: 8, maximum day trip distance: 32
+Stage distances:
+27
+8
+2
+1
+1
+14
+21
+16
+24
+1
+14
+2
+16
+1
+2
+1
+25
+5
+3
+1
+3
+4
+
+Solution day trip distances:
+27
+26
+21
+16
+25
+32
+29
+16
+
+Result day trip distances:
+27
+26
+21
+16
+25
+32
+29
+16
+--- Testing problem ---
+Days: 8, maximum day trip distance: 64
+Stage distances:
+53
+16
+5
+2
+1
+1
+27
+42
+31
+39
+2
+10
+15
+1
+7
+4
+37
+12
+9
+37
+26
+1
+1
+2
+2
+
+Solution day trip distances:
+53
+52
+42
+31
+51
+64
+58
+32
+
+Result day trip distances:
+53
+52
+42
+31
+51
+64
+58
+32
+--- Testing problem ---
+Days: 8, maximum day trip distance: 128
+Stage distances:
+1
+104
+40
+3
+1
+2
+58
+83
+63
+77
+4
+20
+30
+1
+1
+14
+1
+8
+73
+39
+5
+7
+65
+50
+2
+1
+11
+
+Solution day trip distances:
+105
+104
+83
+63
+101
+128
+116
+64
+
+Result day trip distances:
+105
+104
+83
+63
+101
+128
+116
+64
+--- Testing problem ---
+Days: 16, maximum day trip distance: 2
+Stage distances:
+2
+1
+1
+2
+1
+2
+2
+1
+2
+1
+2
+1
+2
+2
+1
+2
+1
+
+Solution day trip distances:
+2
+2
+2
+1
+2
+2
+1
+2
+1
+2
+1
+2
+2
+1
+2
+1
+
+Result day trip distances:
+2
+2
+2
+1
+2
+2
+1
+2
+1
+2
+1
+2
+2
+1
+2
+1
+--- Testing problem ---
+Days: 16, maximum day trip distance: 4
+Stage distances:
+4
+2
+2
+3
+2
+3
+1
+1
+3
+1
+1
+4
+2
+3
+2
+1
+2
+2
+1
+2
+2
+1
+4
+1
+
+Solution day trip distances:
+4
+4
+3
+2
+4
+4
+2
+4
+2
+3
+3
+4
+3
+3
+4
+1
+
+Result day trip distances:
+4
+4
+3
+2
+4
+4
+2
+4
+2
+3
+3
+4
+3
+3
+4
+1
+--- Testing problem ---
+Days: 16, maximum day trip distance: 8
+Stage distances:
+7
+3
+4
+5
+5
+4
+2
+3
+5
+1
+3
+8
+3
+6
+4
+1
+5
+3
+1
+1
+4
+4
+1
+8
+1
+
+Solution day trip distances:
+7
+7
+5
+5
+6
+8
+4
+8
+3
+6
+5
+8
+6
+5
+8
+1
+
+Result day trip distances:
+7
+7
+5
+5
+6
+8
+4
+8
+3
+6
+5
+8
+6
+5
+8
+1
+--- Testing problem ---
+Days: 16, maximum day trip distance: 16
+Stage distances:
+1
+13
+4
+9
+11
+8
+11
+2
+4
+11
+5
+3
+16
+1
+4
+13
+4
+2
+2
+2
+10
+6
+2
+2
+7
+9
+1
+1
+16
+1
+
+Solution day trip distances:
+14
+13
+11
+8
+13
+15
+8
+16
+5
+13
+10
+16
+11
+11
+16
+1
+
+Result day trip distances:
+14
+13
+11
+8
+13
+15
+8
+16
+5
+13
+10
+16
+11
+11
+16
+1
+--- Testing problem ---
+Days: 16, maximum day trip distance: 32
+Stage distances:
+2
+25
+8
+1
+17
+21
+16
+17
+1
+7
+12
+18
+4
+5
+4
+3
+32
+2
+7
+26
+11
+5
+3
+19
+1
+12
+8
+1
+12
+13
+1
+3
+4
+32
+1
+
+Solution day trip distances:
+27
+26
+21
+16
+25
+30
+16
+32
+9
+26
+19
+32
+21
+21
+32
+1
+
+Result day trip distances:
+27
+26
+21
+16
+25
+30
+16
+32
+9
+26
+19
+32
+21
+21
+32
+1
+--- Testing problem ---
+Days: 16, maximum day trip distance: 64
+Stage distances:
+5
+48
+17
+2
+33
+42
+31
+34
+2
+1
+14
+15
+5
+4
+36
+24
+3
+3
+1
+64
+4
+1
+13
+52
+32
+1
+2
+2
+37
+1
+26
+17
+24
+37
+6
+64
+2
+
+Solution day trip distances:
+53
+52
+42
+31
+51
+60
+31
+64
+18
+52
+37
+64
+41
+43
+64
+2
+
+Result day trip distances:
+53
+52
+42
+31
+51
+60
+31
+64
+18
+52
+37
+64
+41
+43
+64
+2
+--- Testing problem ---
+Days: 16, maximum day trip distance: 128
+Stage distances:
+11
+94
+35
+4
+65
+83
+63
+66
+4
+3
+28
+30
+9
+9
+71
+48
+5
+7
+2
+127
+8
+1
+1
+26
+103
+47
+2
+6
+13
+2
+4
+74
+54
+26
+3
+1
+51
+79
+3
+1
+3
+127
+3
+2
+
+Solution day trip distances:
+105
+104
+83
+63
+101
+119
+62
+127
+36
+103
+74
+128
+81
+86
+127
+5
+
+Result day trip distances:
+105
+104
+83
+63
+101
+119
+62
+127
+36
+103
+74
+128
+81
+86
+127
+5
