@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Array_Splitting.Tests
 {
@@ -8,80 +9,68 @@ namespace Array_Splitting.Tests
     public class Tests
     {
         [TestMethod]
-        public void TestArraySplitting()
+        public void TestSolveHikeProblem()
         {
-            // ARRANGE
-            // Generate some random problems.
-            for (int i = 1; i < 5; i++)
+            var stopwatch = new Stopwatch();
+
+            // Warm-up run to ensure that the JIT compiler optimizes the solving method.
+            TestSingleHikeProblem(5, 10, stopwatch, 1);
+
+            // Collect the garbage to reduce any impact of the GC on the time measurements.
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            int days = 1000;
+            int maxDayTripDistance = 1000;
+
+            for (int i = 0; i < 10; i++)
             {
-                for(int j = 1; j < 8; j++)
-                {
-                    int days = 1;
-                    for (int k = 0; k < i; k++)
-                    {
-                        days *= 2;
-                    }
+                // Solve the problem.
+                var averageExecutionTime = TestSingleHikeProblem(days, maxDayTripDistance, stopwatch, 10, i);
 
-                    int maxDayTripDistance = 1;
-                    for (int k = 0; k < j; k++)
-                    {
-                        maxDayTripDistance *= 2;
-                    }
-
-                    List<int> solution;
-                    var stageDistances = ProblemGenerator.GenerateProblemWithUniqueSolution(days, maxDayTripDistance, out solution);
-
-                    // Print the problem.
-                    Console.WriteLine("--- Testing problem ---");
-                    Console.WriteLine("Days: " + days + ", maximum day trip distance: " + maxDayTripDistance);
-                    Console.WriteLine("Stage distances:");
-                    for (int k = 0; k < stageDistances.Length; k++)
-                    {
-                        Console.WriteLine(stageDistances[k]);
-                    }
-
-                    // Print the solution.
-                    Console.WriteLine("");
-                    Console.WriteLine("Solution day trip distances:");
-                    for (int k = 0; k < solution.Count; k++)
-                    {
-                        Console.WriteLine(solution[k]);
-                    }
-
-                    // Calculate the accumulated stage distances and the maximum stage distance.
-                    var accumulatedStageDistances = new int[stageDistances.Length];
-                    var distanceSum = 0;
-
-                    var maxStageDistance = 1;
-
-                    for (int k = 0; k < accumulatedStageDistances.Length; k++)
-                    {
-                        var distance = stageDistances[k];
-
-                        distanceSum += distance;
-                        accumulatedStageDistances[k] = distanceSum;
-
-                        maxStageDistance = Math.Max(maxStageDistance, distance);
-                    }
-
-                    // ACT
-                    var result = Program.SolveHikingProblem(stageDistances, accumulatedStageDistances, maxStageDistance, days);
-
-                    Console.WriteLine("");
-                    Console.WriteLine("Result day trip distances:");
-
-                    // ASSERT
-                    for (int k = 0; k < result.Length; k++)
-                    {
-                        // Print the result.
-                        Console.WriteLine(result[k]);
-
-                        Assert.AreEqual(result[k], solution[k]);
-                    }
-                }
+                // Print the status.
+                Console.WriteLine("---Testing problem---");
+                Console.WriteLine("Days: " + days + ", longest day trip distance: " + maxDayTripDistance);
+                Console.WriteLine("Solved in: " + averageExecutionTime + " milliseconds.");
             }
         }
 
+        /// <summary>
+        /// Tests a single randomly generated problem with the specified parameters.
+        /// </summary>
+        /// <param name="days">The number of days for the problem.</param>
+        /// <param name="maxDayTripDistance">The maximum day trip distance for the problem.</param>
+        /// <param name="stopwatch">A reference to a stopwatch to measure the execution time.</param>
+        /// <param name="repeats">How often execution should be repeated to gain a more accurate execution time measurement.</param>
+        /// <param name="seed">A seed for the problem.</param>
+        /// <returns></returns>
+        private double TestSingleHikeProblem(int days, int maxDayTripDistance, Stopwatch stopwatch, int repeats = 5, int seed = 0)
+        {
+            // Arrange
+            List<int> dayTripDistances;
+            var stageDistances = ProblemGenerator.GenerateProblemWithUniqueSolution(days, maxDayTripDistance, out dayTripDistances, seed);
+
+            // Act
+            int[] result = new int[0];
+            double executionTime = 0;
+            for (int i = 0; i < repeats; i++)
+            {
+                stopwatch.Restart();
+                result = Program.SolveHikingProblem(stageDistances, days);
+                stopwatch.Stop();
+                executionTime += stopwatch.Elapsed.TotalMilliseconds;
+            }
+            executionTime /= repeats;
+
+            // Assert
+            for (int k = 0; k < result.Length; k++)
+            {
+                Assert.AreEqual(result[k], dayTripDistances[k]);
+            }
+
+            return executionTime;
+        }
 
         [TestMethod]
         public void TestModifiedBinarySearch()

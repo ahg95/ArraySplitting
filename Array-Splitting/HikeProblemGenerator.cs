@@ -3,7 +3,7 @@ using System;
 
 namespace Array_Splitting
 {
-    public static class ProblemGenerator
+    public static class HikeProblemGenerator
     {
         /// <summary>
         /// This function generates a problem with a unique solution.
