@@ -1,9 +1,8 @@
 ﻿using System;
-using System.IO;
 
 namespace Array_Splitting
 {
-    public class SolveHikeProblem
+    public class HikeProblemSolver
     {
         // Some parts of the problem were unclear, so I set some reasonable conditions for myself:
         // 1. Each day trip must consist of at least one stage.
@@ -27,22 +26,20 @@ namespace Array_Splitting
             int[] stageDistances;
             int days;
 
-            if (!ReadHikingProblem(filePath, out stageDistances, out days))
+            if (!HikeProblemIO.ReadHikingProblem(filePath, out stageDistances, out days))
                 return;
                 
-            var solution = SolveHikingProblem(stageDistances, days);
+            var solution = SolveHikeProblem(stageDistances, days);
 
-            PrintSolution(solution);
+            HikeProblemIO.PrintSolution(solution);
         }
 
         /// <summary>
         /// Solves the specified hiking problem.
         /// </summary>
         /// <param name="distances">The distances for all stages of the hike.</param>
-        /// <param name="accDistances">The distances of all stages added to the distance of all previous stage distances.</param>
-        /// <param name="maxStageDistance">The greatest distance among stages.</param>
         /// <param name="days">The number of days among which the stages must be divided.</param>
-        public static int[] SolveHikingProblem(int[] distances, int days)
+        public static int[] SolveHikeProblem(int[] distances, int days)
         {
             // Firstly, calculate the accumulated stage distances and the maximum stage distance.
             // Each element in the accumulated stage distances array
@@ -85,7 +82,7 @@ namespace Array_Splitting
                 var maxEndIndex = lastIndex - days + 1 + i;
 
                 // - Instead of iterating over all stage distances, the accumulated stage distances can be used to directly find a fitting day trip distance.
-                var endIndex = ModifiedBinarySearchNextLowest(accDistances, startIndex, maxEndIndex, distanceCovered + lowerBound);
+                var endIndex = ModifiedBinarySearch(accDistances, startIndex, maxEndIndex, distanceCovered + lowerBound);
 
                 // Update the covered distance until now.
                 var dayTripDistance = accDistances[endIndex] - distanceCovered;
@@ -180,7 +177,7 @@ namespace Array_Splitting
             var prevDayTripIndex = dayTripIndex - 1;
             var startIndex = endIndices[prevDayTripIndex] + 1;
             var searchValue = accDistances[startIndex - 1] + minReduction;
-            var updatedStartIndex = ModifiedBinarySearchNextHighest(accDistances, startIndex, endIndex, searchValue) + 1;
+            var updatedStartIndex = ModifiedBinarySearch(accDistances, startIndex, endIndex, searchValue, true) + 1;
 
             // Calculate the previous day trip's distance with the updated start index.
             var prevDayTripStartIndex = dayTripIndex == 1 ? 0 : endIndices[prevDayTripIndex - 1] + 1;
@@ -222,14 +219,15 @@ namespace Array_Splitting
 
 
         /// <summary>
-        /// A modified binary search. If the searched value is not in the container then a close alternative is returned based on the provided comparer.
+        /// A modified binary search. If the searched value is not in the container then a close alternative is returned based on the provided boolean.
         /// </summary>
         /// <param name="container">The container to search in.</param>
         /// <param name="low">The lowest index to search for the value (inclusive).</param>
         /// <param name="high">The highest index to search for the value (inclusive).</param>
         /// <param name="value">The value to search for in the container.</param>
+        /// <param name="findNextHighest">If true, and the search does not find the value, it will return the index of the next highest value. If false, a next lowest value is searched instead.</param>
         /// <returns>The index of the searched value. If the searched value is not in the container then the index of the highest value below the searched value is returned.</returns>
-        public static int ModifiedBinarySearch(int[] container, int low, int high, int value)
+        public static int ModifiedBinarySearch(int[] container, int low, int high, int value, bool findNextHighest = false)
         {
             int result = -1;
 
@@ -245,204 +243,22 @@ namespace Array_Splitting
                 if (a < value)
                 {
                     // Save this value as the best one found yet.
-                    result = mid;
+                    if (!findNextHighest)
+                        result = mid;
 
-                    low = mid + 1;
-                }
-                else
-                {
-                    high = mid - 1;
-                }
-            }
-
-            return result;
-        }
-
-
-
-        /// <summary>
-        /// A modified binary search. If the searched value is not in the container then a close alternative is returned based on the provided comparer.
-        /// </summary>
-        /// <param name="container">The container to search in.</param>
-        /// <param name="low">The lowest index to search for the value (inclusive).</param>
-        /// <param name="high">The highest index to search for the value (inclusive).</param>
-        /// <param name="value">The value to search for in the container.</param>
-        /// <returns>The index of the searched value. If the searched value is not in the container then the index of the highest value below the searched value is returned.</returns>
-        public static int ModifiedBinarySearchNextLowest(int[] container, int low, int high, int value)
-        {
-            int result = -1;
-
-            while (low <= high)
-            {
-                int mid = (int)((low + high) * 0.5f);
-
-                var a = container[mid];
-
-                if (a == value)
-                    return mid;
-
-                if (a < value)
-                {
-                    // Save this value as the best one found yet.
-                    result = mid;
-
-                    low = mid + 1;
-                }
-                else
-                {
-                    high = mid - 1;
-                }
-            }
-
-            return result;
-        }
-
-
-        /// <summary>
-        /// A modified binary search. If the searched value is not in the container then a close alternative is returned based on the provided comparer.
-        /// </summary>
-        /// <param name="container">The container to search in.</param>
-        /// <param name="low">The lowest index to search for the value (inclusive).</param>
-        /// <param name="high">The highest index to search for the value (inclusive).</param>
-        /// <param name="value">The value to search for in the container.</param>
-        /// <returns>The index of the searched value. If the searched value is not in the container then the index of the highest value below the searched value is returned.</returns>
-        public static int ModifiedBinarySearchNextHighest(int[] container, int low, int high, int value)
-        {
-            int result = -1;
-
-            while (low <= high)
-            {
-                int mid = (int)((low + high) * 0.5f);
-
-                var a = container[mid];
-
-                if (a == value)
-                    return mid;
-
-                if (a < value)
-                {
                     low = mid + 1;
                 }
                 else
                 {
                     // Save this value as the best one found yet.
-                    result = mid;
+                    if (findNextHighest)
+                        result = mid;
 
                     high = mid - 1;
                 }
             }
 
             return result;
-        }
-
-
-        /// <summary>
-        /// Reads a text file and translates the text into a hiking problem.
-        /// </summary>
-        /// <param name="filePath">The path to the file to read the problem from.</param>
-        /// <param name="stageDistances">The distances of stages.</param>
-        /// <param name="days">The duration of the hike in days.</param>
-        /// <param name="accumulatedStageDistances">The accumulated stage distances. These are sum of the current stage distance and all previous stage distances.</param>
-        /// <param name="maxStageDistance">The longest stage's distance.</param>
-        /// <returns>If the file was parsed successfully.</returns>
-        static bool ReadHikingProblem(string filePath, out int[] stageDistances, out int days)
-        {
-            stageDistances = new int[0];
-            days = 0;
-
-            // Check if the file exists.
-            if (!File.Exists(filePath))
-            {
-                Console.WriteLine("The specified file does not exist.");
-                return false;
-            }
-
-            // The file exists; try to read its contents.
-            try
-            {
-                int numberOfStages = 0;
-
-                int lineIndex = 0;
-
-                foreach (string line in File.ReadLines(filePath))
-                {
-                    // Trim the line to remove any extra spaces or newline characters.
-                    string trimmedLine = line.Trim();
-
-                    // Attempt to parse the line as an integer.
-                    int number;
-
-                    if (!int.TryParse(trimmedLine, out number) || number <= 0)
-                    {
-                        Console.WriteLine("Encountered invalid or non-positive integer: " + trimmedLine);
-                        return false;
-                    }
-
-                    // Process the number depending on the line index.
-                    if (lineIndex == 0)
-                    {
-                        // The first line contains the number of stages.
-                        numberOfStages = number;
-
-                        // Initialize the distances array.
-                        stageDistances = new int[numberOfStages];
-
-                        Console.WriteLine("Number of stages: " + numberOfStages);
-                    }
-                    else if (lineIndex == 1)
-                    {
-                        // The second line contains the number of days.
-                        days = number;
-
-                        Console.WriteLine("Number of days: " + days);
-                    }
-                    else if (lineIndex < numberOfStages + 2)
-                    {
-                        // All following lines contain stage distances.
-                        // Store the stage distance.
-                        stageDistances[lineIndex - 2] = number;
-
-                        Console.WriteLine((lineIndex - 1) + ". stage distance: " + number);
-                    }
-                    else
-                    {
-                        // Ignore extra lines.
-                        Console.WriteLine("Ignoring extra line: " + trimmedLine);
-                    }
-
-                    lineIndex++;
-                }
-
-                // Validate if enough stages were provided.
-                if (stageDistances.Length != numberOfStages)
-                {
-                    Console.WriteLine("The file does not contain the correct number of stages. Expected: " + numberOfStages + ", found: " + stageDistances.Length);
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred while reading the file: " + ex.Message);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        public static void PrintSolution(int[] dayTripDistances)
-        {
-            var maxDayTripDistance = 0;
-
-            for (int i = 0; i < dayTripDistances.Length; i++)
-            {
-                var dayTripDistance = dayTripDistances[i];
-                maxDayTripDistance = Math.Max(maxDayTripDistance, dayTripDistance);
-
-                Console.WriteLine((i + 1) + ". Tag: " + dayTripDistance + " km");
-            }
-
-            Console.WriteLine("\nMaximum: " + maxDayTripDistance + " km");
         }
     }
 }

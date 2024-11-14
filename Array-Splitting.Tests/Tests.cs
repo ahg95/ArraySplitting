@@ -57,7 +57,7 @@ namespace Array_Splitting.Tests
             for (int i = 0; i < repeats; i++)
             {
                 stopwatch.Restart();
-                result = SolveHikeProblem.SolveHikingProblem(stageDistances, days);
+                result = HikeProblemSolver.SolveHikeProblem(stageDistances, days);
                 stopwatch.Stop();
                 executionTime += stopwatch.Elapsed.TotalMilliseconds;
             }
@@ -110,11 +110,11 @@ namespace Array_Splitting.Tests
 
 
 
-                // Afterwards, use the solution index to construct a value to search for.
+                // Afterwards, use the solution index to construct a value to search for the next lowest search.
                 int searchValue;
                 if (solutionIndex == problemSize - 1)
                 {
-                    // If the solution is the last index then the value to search for could be equal to or higher than the last value of the coontainer.
+                    // If the solution is the last index then the value to search for could be equal to or higher than the last value of the container.
                     var lastValue = values[values.Count - 1];
                     searchValue = rnd.Next(lastValue, lastValue + LARGESTSTEP);
                 } else
@@ -126,12 +126,33 @@ namespace Array_Splitting.Tests
                 }
 
 
-
                 // ACT
-                // Finally, test the search algorithm on the problem.
-                var result = SolveHikeProblem.ModifiedBinarySearchNextLowest(values.ToArray(), 0, problemSize - 1, searchValue);
+                var result = HikeProblemSolver.ModifiedBinarySearch(values.ToArray(), 0, problemSize - 1, searchValue);
 
                 // ASSERT
+                Assert.AreEqual(result, solutionIndex);
+
+                // ARRANGE
+                // Construct a value to search for the next highest search variant.
+
+                // Afterwards, use the solution index to construct a value to search for the next lowest search.
+                if (solutionIndex == 0)
+                {
+                    // If the solution is the first index then the value to search for could be equal to or lower than the first value of the container.
+                    var firstValue = values[0];
+                    searchValue = rnd.Next(firstValue - LARGESTSTEP, firstValue + 1);
+                }
+                else
+                {
+                    // Otherwise, the value to search for must be between the value before the solution index + 1 and the solution value.
+                    var previousValue = values[solutionIndex - 1];
+                    var solutionValue = values[solutionIndex];
+                    searchValue = rnd.Next(previousValue + 1, solutionValue + 1);
+                }
+
+                // ACT
+                result = HikeProblemSolver.ModifiedBinarySearch(values.ToArray(), 0, problemSize - 1, searchValue, true);
+
                 Assert.AreEqual(result, solutionIndex);
             }
         }
